@@ -27,8 +27,6 @@ PR's or contributions from any other channel are most welcome.
 - Add any appropriate trademark and copyright citations as needed
 - Pick some sort of creative commons license
 - Scour my notes and code to create new snipped files
-- Add a section here or separate file for other hints such as developing outside of Insights, toggling the raw button, etc.
-- Upload my parameter handling snippet
 
 ## Guide to snippets
 - `registry_name` should be replaced by your registry name. 
@@ -39,5 +37,38 @@ PR's or contributions from any other channel are most welcome.
   organizations schemas).
   
 ## Catalog of snippets
-- parameter_handling.sql - Patterns for handling Insights dashboard parameters
-- well_position_display.sql - Convert row/col indicies to A1-format
+- **parameter_handling.sql** - Patterns for handling Insights dashboard parameters
+- **well_position_display.sql** - Convert row/col indicies to A1-format
+
+
+## Development hints
+The section collection random hints that can help while developing Insights
+dashboard or Warehouse queries for Benchling.
+
+- **Creating parameters.** Instead of using the UI to click through to add a new parameter,
+  you can simply include your parameter in your SQL and it will be automatically added
+  when you save (Run Query) your query. To add a parameter in your SQL type the name
+  surrounded by double curly brackets such as `{{My Parameter}}`. Once created you
+  will need to click on its name in the UI to set the data type and if desired to check
+  the box to "Allow multiple values".
+
+- **Show raw output button.** When in edit mode, one of the buttons on the top-rigth of the result
+  table is the "Show raw output" button. I mention it here since it's easy to forget this exists
+  and it can be useful during debugging. By default, Benchling magically transforms object IDs
+  into chips. This is quite handy by can sometimes obscure issues on complex queries. Sometimes
+  it's useful to see the types of IDs that are being returned as part of the debugging process.
+
+- **Develop outside of Insignts.** TODO. This section is to be written. In short it can be
+  more productive to write queries in another tool and then copy the results back into Insights.
+
+- **Use Git!** TODO. This section is to be written. In short, use Git since Insights has no
+  versioning or protection against query loss or corruption.
+
+- **Save often.** TODO. This section is to be written. In short, save often since no autosave.
+  Remember that running the query is how it gets saved.
+
+- **Use a restricted project.** TODO. This section is to be written. In short, put dashboards
+  in projects that are READ for others so that they don't corrupt your dashboard accidentally.
+
+- **De-select before running.** TODO. This ecdtion is to be written. In short, remeber to de-select
+  any selected text in the query before running it.
