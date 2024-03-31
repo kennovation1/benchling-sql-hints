@@ -7,12 +7,12 @@ This is a plate example, but can be used for boxes too of course.
 
 */
 select
-	chr(ascii('A') + row_index) || (column_index + 1) as nopad,  -- No zero padding for the column
-	chr(ascii('A') + row_index) || LPAD((column_index + 1) :: text, 2, '0') as padded -- Zero-pad the column number
+        chr(ascii('A') + row_index) || (column_index + 1) as nopad,  -- No zero padding for the column
+        chr(ascii('A') + row_index) || LPAD((column_index + 1) :: text, 2, '0') as padded -- Zero-pad the column number
 from
-	registry_name.container
+        registry_name.container
 where
-	plate_id = 'plt_xxxxxxxx'
+        plate_id = 'plt_xxxxxxxx'
 order by
-	row_index,
-	column_index
+        row_index,
+        column_index
