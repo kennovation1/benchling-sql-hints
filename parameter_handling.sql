@@ -30,6 +30,13 @@ where
 	registry_name.study.id = {{Study}}
 	or {{Study}} is null
 
+-- Sometimes you may want to allow the user to search based on a partial text match
+-- instead of a specific entity. In this case you could use a statement like this:
+	registry_name.study.name$ ILIKE '%' || {{Study name}} || '%'
+-- Note that the field is now the name$ field instead of the id field.
+-- Recall that ILIKE is a case-insenstive match and the % symbol is the wildcard symbol.
+-- The double pipes symbol (||) is string concatenation.
+
 
 /*
 Zero, one, or multiple parameter values. 
