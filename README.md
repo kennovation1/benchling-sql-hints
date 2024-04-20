@@ -47,6 +47,7 @@ PR's or contributions from any other channel are most welcome.
 - **parameter_handling.sql** - Patterns for handling Insights dashboard parameters
 - **well_position_display.sql** - Convert row/col indicies to A1-format
 - **folder_path_construction.sql** - Construct a folder path
+- **simple_pivot.sql** - Pivot a single row result
 
 
 ## Development hints
