@@ -35,6 +35,13 @@ PR's or contributions from any other channel are most welcome.
   which registry you are using since omitting it will give you a default and
   possibly the wrong schema (since the same tables may appear in different
   organizations schemas).
+
+  If you are using the Warehouse (the following will not work for Insights) you
+  can prefix your query (or include in a "pre SQL" script depending on your tool) with:
+  `SET search_path TO registry_name` and then omit the `registry_name` schema prefix
+  in your queries. Don't do this if you are developing using the Warehouse with the
+  intent to deploy via Insights if there are multiple registries since you will need
+  the schema prefix in that case.
   
 ## Catalog of snippets
 - **parameter_handling.sql** - Patterns for handling Insights dashboard parameters
