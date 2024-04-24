@@ -52,7 +52,7 @@ PR's or contributions from any other channel are most welcome.
 ## Utilities
 The `utilities` folder contains Python scripts.
 
-Currently, there is a single utilities called `unpack_insights_export.py`.
+Currently, there is a single utilities file called `unpack_insights_export.py`.
 Benchling Support is able to export all your dashboard SQL (and some, but not all metadata)
 into a CSV file. This file is not directly usable on its own and needs to be unpacked
 (also, don't try to open in Excel). Once unpacked, this is a powerful resource to allow
