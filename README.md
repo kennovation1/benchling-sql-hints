@@ -49,6 +49,17 @@ PR's or contributions from any other channel are most welcome.
 - **folder_path_construction.sql** - Construct a folder path
 - **simple_pivot.sql** - Pivot a single row result
 
+## Utilities
+The `utilities` folder contains Python scripts.
+
+Currently, there is a single utilities called `unpack_insights_export.py`.
+Benchling Support is able to export all your dashboard SQL (and some, but not all metadata)
+into a CSV file. This file is not directly usable on its own and needs to be unpacked
+(also, don't try to open in Excel). Once unpacked, this is a powerful resource to allow
+you to easily see across your Insights landscape. This is important if you are trying to
+assess the Insights impacts from data model changes, trying to pull back your data to
+start controlling it in git, etc. The comment block at the start of the script provides
+all details.
 
 ## Development hints
 The section collection random hints that can help while developing Insights
@@ -69,15 +80,27 @@ dashboard or Warehouse queries for Benchling.
 
 - **Develop outside of Insignts.** TODO. This section is to be written. In short it can be
   more productive to write queries in another tool and then copy the results back into Insights.
+  Add note about name resolution diffs and parameters handling diffs.
 
 - **Use Git!** TODO. This section is to be written. In short, use Git since Insights has no
-  versioning or protection against query loss or corruption.
+  versioning (yet) or protection against query loss or corruption. Git provides many other benefits
+  as well (see my community post for some text)
 
-- **Save often.** TODO. This section is to be written. In short, save often since no autosave.
-  Remember that running the query is how it gets saved.
+- **Save often.** Save often (by executing your Insights query) since there is no autosave.
+  There is currently no version control, but in a pinch you can use the audit logs to find the
+  SQL for an older version. However, per the above, I strongly recommend you develop outside
+  of Insights and use git. If you do that, then the version in Insights can always be easily
+  restored since it is not the source of truth.
 
-- **Use a restricted project.** TODO. This section is to be written. In short, put dashboards
-  in projects that are READ for others so that they don't corrupt your dashboard accidentally.
+- **Use a restricted project.** Dashboards live in projects and therefore inherit their permissions.
+  Therefore, it's easy for end users to change the SQL or the parameters or the charting options.
+  To prevent this, always put shared dashboards in a project that is read-only to prevent
+  accidental dashboard corruption. As folder permissions are now just coming online, alternatively
+  you could put dashboards in read-only folders if that's enabled in your tenant.
 
-- **De-select before running.** TODO. This ecdtion is to be written. In short, remeber to de-select
-  any selected text in the query before running it.
+- **De-select before running.** This is a silly details that you'll figure out after you fail
+  a couple of times, but it's common to leave some text selected when running your query.
+  If you do this, Benchling will attempt to run only the selected SQL. Since a selection is rarely
+  a valid full SQL statement, you'll get an error. Sometimes, you might stare perplexed trying to
+  debug perfectly valid SQL because what's being run is the selection, not your entire SQL script. 
+  
