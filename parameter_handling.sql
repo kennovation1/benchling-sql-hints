@@ -57,6 +57,21 @@ where
 	
 
 /*
+Filter on a list of pasted names.
+In Insights Dashboards you cannot paste a list entity IDs.
+Sometimes we need to do this when the list comes from either a notebook entry or
+a spreadsheet. Depending on the situation, the list may be space, comma, or other separators.
+To solve this, set the parameter type to Text (not entity) and use a "like" pattern as shown below.
+This method is tolerant of different delimiters and even other oddities such as catching
+the column header in the list (such as when copying the entire column from Excel).
+*/
+select * from registry_name.study
+where
+        ({{mRNA names}} like '%' || registry_name.mrna.name$ || '%')
+	or {{mRNA names}} is null
+
+
+/*
 This is an example where the parameter is array and the field is also an array.
 This is not a common case, by I ran into it once and so have captured it here.
 
