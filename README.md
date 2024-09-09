@@ -48,6 +48,7 @@ PR's or contributions from any other channel are most welcome.
 - **well_position_display.sql** - Convert row/col indicies to A1-format
 - **folder_path_construction.sql** - Construct a folder path
 - **simple_pivot.sql** - Pivot a single row result
+- **entity_schema_by_prefix.sql** - Lookup information about an entity schema based on a schema prefix parameter
 
 ## Utilities
 The `utilities` folder contains Python scripts.
