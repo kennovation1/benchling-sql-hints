@@ -49,6 +49,7 @@ PR's or contributions from any other channel are most welcome.
 - **folder_path_construction.sql** - Construct a folder path
 - **simple_pivot.sql** - Pivot a single row result
 - **entity_schema_by_prefix.sql** - Lookup information about an entity schema based on a schema prefix parameter
+- **dropdown_references.sql** - Shows information about how dropdowns are referenced
 
 ## Utilities
 The `utilities` folder contains Python scripts.
