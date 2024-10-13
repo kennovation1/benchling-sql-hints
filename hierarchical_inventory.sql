@@ -5,17 +5,17 @@ This query builds the full path from the root down to the final container (a box
 This is not a universal query, but is a good guide as a starting point to adapt for your specific
 needs.
 
-Note that this example can be adpated to similar hierarchical objects such as folder hierarchies.
+Note that this example can be adapted to similar hierarchical objects such as folder hierarchies.
 
 An example output header and one row:
 id, lid, Box name, Location name, Full storage path
 box_O7OKYQ54, loc_WKFfpzDG, 9BOX789, Shelf C, Floor 2 -> Room 200 -> FRZR008 -> Shelf C -> 9BOX789
 
-This was created by and originally Matt (@mpduval) on the Benchling Community forum in this thread:
+This was created by and originally posted by Matt (@mpduval) on the Benchling Community forum in this thread:
 "Inventory search with multiple levels"
 https://community.benchling.com/ask-the-community-6/inventory-search-with-multiple-levels-1124
 
-This version has been lightly edited from the original for formatting, and presentation of the final output.
+This version has been lightly edited from the original for formatting and presentation of the final output.
 Consider using ' / ' instead of ' -> '.
 */
 
