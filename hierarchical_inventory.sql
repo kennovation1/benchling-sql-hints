@@ -32,6 +32,11 @@ RECURSIVE locations_with_roots AS (
 		locations.name as storagepath
 	FROM REGISTRY.location AS locations
 	WHERE locations.location_id IS NULL
+    /*
+    Ada (@adawzhang) added: I modified WHERE locations.location_id IS NULL to
+    WHERE locations.location_id = '{{location_id}}'
+    in the base case to capture the location_id of the “top-most” parent (Freezer) that I wanted to search from.
+    */
 
 	UNION ALL
 
