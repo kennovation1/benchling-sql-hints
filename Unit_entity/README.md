@@ -3,7 +3,7 @@ This directory contains files related to creating and populating a custom Unit e
 See the documentation in top of [Unit.yaml](./Unit.yaml).
 
 More importantly, see the Medium post that provides the full documentation on this
-topic at [TODO](https://medium.com/p/8ce76bfab5e6)
+topic at [Units unit!](https://medium.com/benchling-bistro/units-unite-8ce76bfab5e6)
 
 - [Unit.yaml](./Unit.yaml) - Specification for the Unit entity scheme and embeds the SQL to populate it
 - [units.sql](./units.sql) - The SQL from the above YAML file, but extracted into a separate SQL file
