@@ -1,0 +1,111 @@
+Entity_schemas:
+- Name: Unit
+  Description: Dictionary of unit names, symbols, and conversion factors. can
+    be used instead of a units dropdown. Mirrors the Benchling Units Dictionary.
+    The entity name should be set to equal the symbol and the registry ID should
+    be set to equal the name.
+
+    If there is a case-insensitive match on the symbols (e.g., m and M) then
+    the convention will be to add a trailing period to the entity name (which
+    represents the symbol) to the symbol that starts with a capital letter
+    (e.g., "M" becomes "M."). This may not be perfect for any possible use case
+    (e.g., Mxx and MXX would both get the period and therefore would still be in conflict),
+    but for realistic cases, we should be fine. If not, manually resolve this.
+    I can't think of other cases at the moment. This is required since Benchling
+    does not consider case when determining name uniqueness.
+
+    The design is that the common symbol appears in the name and therefore in the chip
+    and the registry ID makes it easy to see the full name. The official values for
+    name and symbol (without any trailing periods) are defined in the Name and
+    Symbol metadata fields.
+
+    The following SQL query is used to create a csv to initialize this registry from
+    the Benchling Unit Dictionary. This of course is not required, but it is helpful.
+
+    SELECT
+        unit.name AS "New registry ID",
+        CASE 
+            WHEN EXISTS (
+                SELECT 1 
+                FROM bnch$unit$raw AS subunit 
+                WHERE LOWER(subunit.symbol) = LOWER(unit.symbol) 
+                  AND subunit.symbol <> unit.symbol
+            ) 
+            AND unit.symbol ~ '^[A-Z]' THEN 
+                unit.symbol || '.'  -- Add a trailing period if it starts with a capital letter
+            ELSE 
+                unit.symbol
+        END AS "New entity name",
+        unit.name AS "Entity name",
+        unit.name AS "Name",
+        unit.symbol AS "Symbol",
+        STRING_AGG(als.value, ', ') AS "Additional alias",
+        unit.conversion_factor AS "Conversion factor",
+        utype.name AS "Type",
+        baseunit.name AS "Base unit"
+    FROM bnch$unit$raw unit
+    JOIN bnch$unit_type$raw utype ON utype.id = unit.unit_type_id
+    JOIN bnch$unit$raw baseunit ON baseunit.id = utype.base_unit_id
+    LEFT JOIN LATERAL jsonb_array_elements_text(unit.aliases) AS als ON true
+    WHERE unit.archived$ = false
+    GROUP BY
+        unit.name,
+        unit.symbol,
+        unit.conversion_factor,
+        utype.name,
+        baseunit.name;
+
+    After creating a csv using the above using the Registry tool to import the csv into the
+    v2_Unit registry. Do this in two passes. In the first pass, ignore the "New entity name"
+    and "New registry ID" fields. This is necessary since Benchling won't allow us to set
+    the registry ID directly on initial registration. 
+    On the second pass, use the registration tool to update the v2_Unit
+    registry and make on Name. This time map the New registry ID and New entity name
+    fields to the same names in the dropdowns and ignore the other fields.
+
+  Entity type: Custom Entity
+  Prefix: UNIT
+  System name: unit
+  Containable type: None
+  Name template: []
+  Constraint: []
+  Naming options:
+  - Generate new registry IDs
+  RegID chips: false
+  RegID display: false
+  Access type: Registry-based
+  Fields:
+  - Name: Type
+    Description: See the Warehouse table bnch$unit_type for Unit Dictionary types.
+    Tool tip: The type or class of unit such as Length, Mass, Volume, etc.
+      This is generally a mirror of the type/class for the Unit Dictionary.
+    System name: type
+    Required: true
+    Type: Text
+  - Name: Name
+    Description: The full name of the unit. This should be replicated as the registry ID.
+    Tool tip: The full name of the unit
+    System name: name
+    Required: true
+    Type: Text
+  - Name: Symbol
+    Description: This should be replicated as the entity name.
+    Tool tip: The symbol for the unit. Do not use Greek letters in the symbol.
+      They may be used in the aliases field.
+    System name: symbol
+    Required: true
+    Type: Text
+  - Name: Base unit
+    Tool tip: The base unit for a given type. This is the unit to which the conversion factor
+      relates. By definition, the conversion factor must be 1 for a base unit.
+      Leave this blank if this is the base unit.
+    System name: base_unit
+    Required: true
+    Type: Entity
+    Definition: Unit  # A self reference
+  - Name: Conversion factor
+    Tool tip: The value to multiply by to convert to the base unit (often the SI unit).
+      Set to 1 on the base unit.
+    System name: conversion_factor
+    Required: true
+    Type: Decimal

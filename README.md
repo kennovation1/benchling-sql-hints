@@ -44,13 +44,14 @@ PR's or contributions from any other channel are most welcome.
   the schema prefix in that case.
   
 ## Catalog of snippets
-- **parameter_handling.sql** - Patterns for handling Insights dashboard parameters
-- **well_position_display.sql** - Convert row/col indicies to A1-format
-- **folder_path_construction.sql** - Construct a folder path
-- **simple_pivot.sql** - Pivot a single row result
-- **entity_schema_by_prefix.sql** - Lookup information about an entity schema based on a schema prefix parameter
-- **dropdown_references.sql** - Shows information about how dropdowns are referenced
-- **hierarchical_inventory.sql** - Create a hierarchical location path for an inventory container (e.g., box)
+- [parameter_handling.sql](./parameter_handling.sql) - Patterns for handling Insights dashboard parameters
+- [well_position_display.sql](./well_position_display.sql) - Convert row/col indicies to A1-format
+- [folder_path_construction.sql](./folder_path_construction.sql) - Construct a folder path
+- [simple_pivot.sql](./simple_pivot.sql) - Pivot a single row result
+- [entity_schema_by_prefix.sql](./entity_schema_by_prefix.sql) - Lookup information about an entity schema based on a schema prefix parameter
+- [dropdown_references.sql](./dropdown_references.sql) - Shows information about how dropdowns are referenced
+- [hierarchical_inventory.sql](./hierarchical_inventory.sql) - Create a hierarchical location path for an inventory container (e.g., box)
+- [Unit_entity](./Unit_entity/) - Files related to creating and populating a custom Unit entity as a custom data type
 
 ## Utilities
 The `utilities` folder contains Python scripts.
