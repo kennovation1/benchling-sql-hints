@@ -84,10 +84,26 @@ referenced_fields as (
     left join dropdown$raw dd on dd.id = fd.dropdown_id
     where fd.archived$ = false
     order by refsc.source_schema_name, fd.display_name
+),
+
+-- Get the count of entities for each schema. Include only registered and not archived entities.
+entity_counts as (
+    select
+        rs.source_schema_name,
+        count(*) count
+    from referenced_schemas rs
+    join registry_entity$raw re on re.schema_id = rs.source_schema_id
+    where re.archived$ = false
+    group by rs.source_schema_name
 )
 
--- Get the unique set of referenced schema names.
+
+-- Get the unique set of referenced schema names
 -- select * from referenced_schemas
+
+-- Get the count of entities for each schema
+select * from entity_counts
+order by count desc
 
 -- MAIN QUERY
 -- Get the field definitions for the referenced schemas
