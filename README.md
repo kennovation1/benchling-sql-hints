@@ -53,6 +53,7 @@ PR's or contributions from any other channel are most welcome.
 - [hierarchical_inventory.sql](./hierarchical_inventory.sql) - Create a hierarchical location path for an inventory container (e.g., box)
 - [data_dictionary.sql](./data_dictionary.sql) - Create a data dictionary of all fields from all schemas that contribute to the target schema
 - [Unit_entity](./Unit_entity/) - Files related to creating and populating a custom Unit entity as a custom data type
+- [templates_for_entity_schema.sql](./templates_for_entity_schema.sql) - What templates are actively used to register the defined entity schema
 
 ## Utilities
 The `utilities` folder contains Python scripts.
