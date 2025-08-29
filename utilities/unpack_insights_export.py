@@ -27,7 +27,7 @@ outside of this tool.
 The structure of the output is as follows:
 insights_export_YYYY-mm-dd_HH_MM_SS/
     dashboard_name1/ (special characters are replaced with double underscores)
-        manifest.yaml
+        manifest.txt
         block_name1.sql (special characters are replaced with double underscores)
         ...
         block_nameN.sql
