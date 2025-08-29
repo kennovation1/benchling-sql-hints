@@ -57,9 +57,17 @@ from pathlib import Path
 
 
 def clean_file_name(fname: str) -> str:
-    '''Replace characters that are unfriendly in a file name with a double underscore.'''
+    '''
+    Replace characters that are unfriendly in a file name with a double underscore.
+
+    Truncate if the name is too long.
+    '''
     valid_chars = f"-_.() {string.ascii_letters}{string.digits}"
-    return ''.join(c if c in valid_chars else '__' for c in fname.strip())
+    fname = ''.join(c if c in valid_chars else '__' for c in fname.strip())
+    if len(fname) > 250:
+        print(f'Directory or file name too long and will be truncated. Original name:\n"{fname}"')
+        fname = f'{fname[:240]}-TRUNCATED'
+    return fname
 
 
 def create_dashboard_metadata_file(dash_dir: Path, block: dict) -> None:
