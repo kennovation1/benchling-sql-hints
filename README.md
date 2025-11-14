@@ -44,6 +44,7 @@ PR's or contributions from any other channel are most welcome.
   the schema prefix in that case.
   
 ## Catalog of snippets
+(In no particular order)
 - [parameter_handling.sql](./parameter_handling.sql) - Patterns for handling Insights dashboard parameters
 - [well_position_display.sql](./well_position_display.sql) - Convert row/col indices to A1-format
 - [folder_path_construction.sql](./folder_path_construction.sql) - Construct a folder path
@@ -54,6 +55,7 @@ PR's or contributions from any other channel are most welcome.
 - [data_dictionary.sql](./data_dictionary.sql) - Create a data dictionary of all fields from all schemas that contribute to the target schema
 - [Unit_entity](./Unit_entity/) - Files related to creating and populating a custom Unit entity as a custom data type
 - [templates_for_entity_schema.sql](./templates_for_entity_schema.sql) - What templates are actively used to register the defined entity schema
+- [active_templates_for_schema.sql](./active_templates_for_schema.sql) - list of entry templates that are actively used to register entities in a given schema
 
 ## Utilities
 The `utilities` folder contains Python scripts.
