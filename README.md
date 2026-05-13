@@ -18,15 +18,16 @@ PR's or contributions from any other channel are most welcome.
 - Benchling's Insights module is based on their Warehouse function
 - Benchling's Warehouse is built on PostreSQL and hosted by AWS
   - I'll not document the version since that's too hard to keep current
-- [Benchling Warehose & Getting started](https://docs.benchling.com/docs/getting-started) guide
+- [Benchling Warehouse & Getting started](https://docs.benchling.com/docs/getting-started) guide
 - [Boston Benchling User Group](https://www.meetup.com/benchling-user-group-boston/)
   (organized by yours truly, Ken Robbins)
 - [Benchling Community forum](https://community.benchling.com/)
+- [Custom Views](https://medium.com/benchling-bistro/what-a-view-benchling-custom-views-8b09ee40dfaf)
 
 ## TODO
 - Add any appropriate trademark and copyright citations as needed
 - Pick some sort of creative commons license
-- Scour my notes and code to create new snipped files
+- Scour my notes and code to create new snippet files
 
 ## Guide to snippets
 - `registry_name` should be replaced by your registry name. 
