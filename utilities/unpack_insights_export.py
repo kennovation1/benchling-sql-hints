@@ -27,7 +27,7 @@ outside of this tool.
 The structure of the output is as follows:
 insights_export_YYYY-mm-dd_HH_MM_SS/
     dashboard_name1/ (special characters are replaced with double underscores)
-        manifest.txt
+        README.md
         block_name1.sql (special characters are replaced with double underscores)
         ...
         block_nameN.sql
@@ -42,11 +42,9 @@ Block description: the block description
 Extracted from export: e.g., 2024-04-23 21:11 EDT
 */
 
-manifest.txt:
-Dashboard name: full name without any character substitutions
-Dashboard ID: e.g., axdash_XvnMl799
-Dashboard URL: e.g., https://sometenant.benchling.com/analytics/dashboards/axdash_XvnMl799-_sample-analytics
-Extracted from export: e.g. 2024-04-23 21:11 EDT
+README.md:
+Markdown describing the dashboard (name, placeholders for project, description,
+and parameters) and each block in CSV order, aligned with the repo README template.
 
 '''
 import csv
@@ -70,15 +68,58 @@ def clean_file_name(fname: str) -> str:
     return fname
 
 
-def create_dashboard_metadata_file(dash_dir: Path, block: dict) -> None:
-    '''Write a dashboard metadata file. Overwrites old file each time.'''
-    dash_file = dash_dir / Path('metadata.txt')
-    body = f'''Dashboard name: {block['Dashboard name']}
-Dashboard ID: {block['Dashboard ID']}
-Dashboard URL: {block['Dashboard URL']}
-Extracted from export: {datetime.now(timezone.utc).astimezone().strftime('%Y-%m-%d %H:%M %Z')}
+def _block_readme_section(block: dict) -> str:
+    '''One block entry for README.md (Blocks section).'''
+    raw_name = block['Block name']
+    sql_name = f'{clean_file_name(raw_name)}.sql'
+    return f'''## {raw_name}
+
+- Block name: {raw_name}
+- Block description: {block['Description']}
+- SQL file name: {sql_name}
+- Chart type:
+  - *Chart type parameters (for all chart types other than Table)*
+
+
 '''
-    dash_file.write_text(body)
+
+
+def _export_metadata_section(block: dict, extracted: str) -> str:
+    return f'''# Export metadata (tenant-specific)
+
+- Dashboard URL: {block['Dashboard URL']}
+- Extracted from export: {extracted}
+'''
+
+
+def update_dashboard_readme(dash_dir: Path, block: dict) -> None:
+    '''Write or append README.md for this dashboard. First row seeds Dashboard + first block.'''
+    readme = dash_dir / Path('README.md')
+    extracted = datetime.now(timezone.utc).astimezone().strftime('%Y-%m-%d %H:%M %Z')
+    if not readme.exists():
+        body = f'''# Dashboard
+- Name: {block['Dashboard name']}
+- Project:
+- Description:
+- Parameters: *One row for each parameter*
+  - Name: some_name; Type: some_type; Multi-select: {{checked | unchecked}}
+
+# Blocks
+Specify blocks in reading order. That is, block1 is top left, block2 is top right, block3 is on left of next row, etc.
+
+{_block_readme_section(block)}*Other notes as may be helpful*
+
+{_export_metadata_section(block, extracted)}
+'''
+        readme.write_text(body)
+    else:
+        text = readme.read_text()
+        marker = '\n*Other notes as may be helpful*\n\n'
+        if marker not in text:
+            readme.write_text(text + _block_readme_section(block))
+            return
+        before, after = text.split(marker, 1)
+        readme.write_text(before + _block_readme_section(block) + marker + after)
 
 
 def process_block(parent_dir: Path, block: dict) -> None:
@@ -97,7 +138,7 @@ Extracted from export: {datetime.now(timezone.utc).astimezone().strftime('%Y-%m-
 
 '''
     sql_file.write_text(header + block['Query'])
-    create_dashboard_metadata_file(dash_dir, block)
+    update_dashboard_readme(dash_dir, block)
 
 
 def main() -> None:
