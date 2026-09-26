@@ -113,3 +113,14 @@ dashboard or Warehouse queries for Benchling.
   a valid full SQL statement, you'll get an error. Sometimes, you might stare perplexed trying to
   debug perfectly valid SQL because what's being run is the selection, not your entire SQL script. 
   
+
+## TODO
+
+- **`Unit_entity/units.sql` tie-break for case-only collisions is wrong (inbox 2026-09-18).** The
+  trailing-period rule fires only when `unit.symbol ~ '^[A-Z]'`, so it catches `m`/`M` but misses
+  `um`/`uM` and `mm`/`mM` (difference in the last character) — neither row gets a period and the
+  second fails to register. Worse, Benchling's name matching probably ignores punctuation as well
+  as case, so a trailing period may not break the tie at all, and it is poor UX regardless. Pick a
+  visible, alphanumeric, meaningful difference (possibly keyed on unit Type, on whichever unit of
+  the pair the tenant uses less), then update `Unit.yaml`, the README, and the published blog
+  procedure. See `_practice/patterns/entity-name-collisions.md`.
